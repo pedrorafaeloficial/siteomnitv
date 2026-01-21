@@ -1,0 +1,802 @@
+<?php /* Template Name: OmniTV Home */ ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniTv - Assista Tudo Onde Quiser</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth; /* Rolagem suave */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Um preto mais profundo que o gray-900 */
+            background-color: #0a0a0a; 
+            /* Um brilho sutil no topo da página */
+            background-image: radial-gradient(circle at top left, rgba(79, 70, 229, 0.15), transparent 30%);
+            background-repeat: no-repeat;
+        }
+        
+        /* --- Configuração do Carrossel CSS --- */
+        .scroller {
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .scroller::-webkit-scrollbar {
+          display: none; /* Chrome, Safari, Opera */
+        }
+        .scroller[data-animated="true"] {
+          overflow: hidden;
+          -webkit-mask: linear-gradient(
+            90deg,
+            transparent,
+            white 20%,
+            white 80%,
+            transparent
+          );
+          mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+        }
+        .scroller[data-animated="true"] .scroller__inner {
+          width: max-content;
+          flex-wrap: nowrap;
+          animation: scroll 60s linear infinite;
+        }
+        .scroller[data-animated="true"]:hover .scroller__inner {
+            animation-play-state: paused;
+        }
+        @keyframes scroll {
+          to {
+            transform: translate(calc(-50% - 0.5rem));
+          }
+        }
+        /* --- Fim do Carrossel CSS --- */
+
+        /* --- Estilização do FAQ (Accordion <details>) --- */
+        details {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+            transition: background-color 0.3s ease;
+        }
+        details[open] {
+            background-color: rgba(17, 24, 39, 0.2); /* Fundo sutil ao abrir */
+        }
+        details > summary {
+            list-style: none; /* Remove o marcador padrão */
+            padding: 1.5rem 1rem; /* Mais espaçamento */
+        }
+        details > summary::-webkit-details-marker {
+            display: none; /* Remove o marcador no Safari */
+        }
+        details > div.faq-content {
+             padding: 0 1.5rem 1.5rem 1.5rem; /* Ajuste no padding da resposta */
+        }
+        /* Rotação do ícone do accordion */
+        details[open] summary svg {
+            transform: rotate(180deg);
+        }
+
+        /* Efeito de brilho para botões */
+        .glow-button {
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.6), 0 0 10px rgba(79, 70, 229, 0.4);
+        }
+        
+        /* Estilo "Glassmorphism" para cards */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.3); /* bg-gray-900 com 30% opacidade */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Gradiente no texto */
+        .text-gradient {
+            background: linear-gradient(to right, #a78bfa, #c4b5fd); /* De violeta-400 para violeta-300 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-black text-white antialiased">
+
+    <!-- Barra de Urgência Dinâmica --><div class="bg-red-600 text-white p-3 text-center font-bold">
+        <p id="dynamic-offer-text">
+            🔥 ÚLTIMO DIA! Oferta válida apenas para os dias 7, 8 e 9 de Novembro.
+        </p>
+    </div>
+
+    <!-- Header --><header class="bg-black/50 backdrop-blur-lg shadow-lg sticky top-0 z-50 border-b border-gray-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo Image (ATUALIZADO) -->
+            <div>
+                <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/logo.png" alt="OmniTv Logo" class="h-10 w-auto">
+            </div>
+            <!-- Botão principal (ATUALIZADO COM LINK WHATSAPP) -->
+            <div>
+                <a href="https://api.whatsapp.com/send?phone=5511977957131&text=Olá%20quero%20testar%20o%20sistema%20da%20OmniTV%20de%20Graça%21" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg hover:shadow-green-500/40 transform transition-transform duration-300 hover:scale-105">
+                    Teste Grátis por 24h
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section --><main>
+        <section class="container mx-auto px-6 pt-16 pb-16 md:pt-24 md:pb-20 text-center">
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tighter">
+                ASSISTA TUDO QUE <span class="text-orange-500">QUISER</span>
+                <br class="hidden md:block">
+                SEM PAGAR CARO COM <span class="text-orange-500">TV A CABO!</span>
+            </h2>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                Tenha acesso a todos os canais, filmes e séries em um só lugar por um preço que cabe no seu bolso.
+            </p>
+
+            <!-- Vídeo do YouTube --><div class="max-w-4xl mx-auto mb-12">
+                <!-- CORREÇÃO: A classe 'aspect-video' força a proporção 16:9 -->
+                <div class="aspect-video overflow-hidden rounded-2xl shadow-2xl shadow-indigo-500/10">
+                    <!-- 
+                        CORREÇÃO: 
+                        Removido 'autoplay=1' e 'mute=1'.
+                        Adicionado 'controls=1' para que o usuário possa dar play (com som).
+                    --><iframe 
+                        src="https://www.youtube.com/embed/rZWH9GF7mfQ?playsinline=1&loop=1&playlist=rZWH9GF7mfQ&controls=1&modestbranding=1" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="w-full h-full">
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-center">
+                <a href="#pricing" class="glow-button bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105">
+                    Quero testar grátis!
+                </a>
+            </div>
+        </section>
+
+        <!-- Seção de Recursos / Benefícios --><section id="features" class="py-20 md:py-28">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-white">
+                    POR QUE <span class="text-orange-500">MILHARES DE PESSOAS</span> ESTÃO MIGRANDO PARA A <span class="text-orange-500">OMNITV?</span>
+                </h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+                    A OmniTv une o melhor de todos os mundos: preço baixo, conteúdo infinito e a mais alta tecnologia.
+                </p>
+                
+                <!-- Grid de Benefícios --><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1: Multi plataforma --><div class="glass-card p-8 rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-orange-400">
+                        <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/40">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Multi plataforma</h3>
+                        <p class="text-gray-400">Assista no Celular, Tablet, Computador, Smart TV e TV Box.</p>
+                    </div>
+
+                    <!-- Card 2: Qualidade 4k e UHD --><div class="glass-card p-8 rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-orange-400">
+                        <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/40">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Qualidade 4k e UHD</h3>
+                        <p class="text-gray-400">Todo o conteúdo disponível na maior resolução, sem travamentos.</p>
+                    </div>
+
+                    <!-- Card 3: 1600 Canais --><div class="glass-card p-8 rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-orange-400">
+                        <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/40">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 12h4m-2 2v-4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">1600 Canais</h3>
+                        <p class="text-gray-400">Canais ao vivo, esportes, notícias, infantis e muito mais.</p>
+                    </div>
+
+                    <!-- Card 4: 36 mil Filmes --><div class="glass-card p-8 rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-orange-400">
+                        <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/40">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">36 mil Filmes</h3>
+                        <p class="text-gray-400">Dos clássicos do cinema aos últimos lançamentos de Hollywood.</p>
+                    </div>
+
+                    <!-- Card 5: 10 Mil Séries --><div class="glass-card p-8 rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-orange-400">
+                        <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/40">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M5 11v2m14-2v2"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">10 Mil Séries</h3>
+                        <p class="text-gray-400">Todas as temporadas das séries mais aclamadas e premiadas.</p>
+                    </div>
+
+                    <!-- Card 6: Instalação Rápida --><div class="glass-card p-8 rounded-2xl shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-orange-400">
+                        <div class="bg-orange-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-orange-500/40">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3">Instalação em 2 minutos</h3>
+                        <p class="text-gray-400">Receba seu acesso e instale em qualquer dispositivo de forma simples.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Carrossel de Filmes --><section class="py-14 md:py-18">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-10 text-white">
+                    Diversos <span class="text-orange-500">Filmes</span> de todos os <span class="text-orange-500">gêneros!</span>
+                </h2>
+            </div>
+            
+            <!-- Carrossel Infinito CSS --><div class="scroller" data-animated="true">
+                <div class="scroller__inner flex gap-4">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/001.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/002.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/003.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/004.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/005.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/006.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/007.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/008.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/009.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/010.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/011.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/012.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/013.png" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/014.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/015.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/016.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/017.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/018.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/019.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/020.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/001.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/002.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/003.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/004.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/005.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/006.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/007.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/008.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/009.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/010.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/011.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/012.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/013.png" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/014.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/015.webp" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/016.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/017.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/018.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/019.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/020.jpg" alt="Capa de Filme" class="rounded-lg w-40 md:w-52" aria-hidden="true">
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Grid de Séries (CORRIGIDA) --><section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-5xl font-bold text-center mb-6 text-white">
+                    E muitas <span class="text-orange-500">Séries</span> para você
+                </h2>
+                
+                <!-- Grid de 30 capas (CORRIGIDO) -->
+                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/001-1.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/008.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/007.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/006.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/011.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/010-1.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/009-1.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/016-1.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/015-1.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/014-1.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/013.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/012.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/017.png" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/018.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/019.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/020.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/021.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/022.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/023.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/024.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/025.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/026.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/029.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/027.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/028.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/030.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/005.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/004.webp" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/003-1.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                    <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/002-1.jpg" alt="Capa de Série" class="rounded-lg shadow-lg w-full aspect-[2/3] object-cover transition-transform transform hover:scale-105">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Seção de Comparação (Logos) - CORRIGIDA --><section class="py-20 md:py-28 bg-gray-100">
+            <div class="container mx-auto px-6 text-center">
+                
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-12 text-gray-900">
+                        Chega de pagar todas essas <span class="text-orange-500">plataformas separadas</span>
+                    </h2>
+                    
+                    <!-- Grid de Logos - CORRIGIDO --><div class="grid grid-cols-3 sm:grid-cols-5 gap-6 items-center max-w-4xl mx-auto">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/001.png" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/002.png" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/003.png" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/005-1-scaled.webp" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/004.png" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/006-1.webp" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/007.png" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/010.webp" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/009.png" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                        <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/008.png" alt="Logo Plataforma" class="max-h-10 w-auto mx-auto object-contain transition-transform duration-300 hover:scale-110">
+                    </div>
+
+                    <!-- Texto de Comparação de Preço --><p class="text-xl text-gray-700 mt-12 max-w-3xl mx-auto">
+                        Todas essas plataformas somam mais de 300 reais mensais, é um absurdo ter acesso a todos os conteúdos hoje em dia.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Garantia (CORRIGIDA) --><section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="glass-card rounded-3xl shadow-xl p-10 md:p-16 max-w-5xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-bold text-center mb-10 text-white">
+                        Nossos <span class="text-orange-500">planos</span> com <span class="text-orange-500">Garantia!</span>
+                    </h2>
+                    <div class="flex flex-col md:flex-row items-center gap-6 md:gap-12">
+                        <!-- Selo de Garantia (Imagem CORRIGIDA) --><div class="flex-shrink-0">
+                            <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/selo.webp" alt="Selo de Garantia 7 Dias" class="w-32 h-32 object-contain transition-transform duration-300 hover:scale-110">
+                        </div>
+                        <!-- Texto da Garantia --><div class="text-left">
+                            <p class="text-lg text-gray-300 mb-4">
+                                A OmniTV se compromete tanto com você que te dá 7 dias de Garantia caso não goste do sistema por qualquer motivo. Se dentro de 7 dias você não gostar do serviço ou quiser deixar de usar por qualquer motivo, basta contactar o revendedor responsável e pedir reembolso.
+                            </p>
+                            <p class="text-lg text-gray-200 font-semibold">
+                                Isso garante que você não vai ser lesado e que vai usar exatamente o que prometemos!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Seção de Preços --><section id="pricing" class="pt-10 pb-16 md:pb-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 leading-snug text-white">
+                    Escolha seu <span class="text-orange-500">plano</span> e Teste por <span class="text-orange-500">24 horas!</span>
+                </h2>
+                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+                    Sem precisar pagar ou colocar seu Cartão! Comece a economizar hoje mesmo com acesso ilimitado.
+                </p>
+
+                <div class="flex flex-col lg:flex-row justify-center items-center gap-6">
+                <div class="flex flex-col gap-6 w-full lg:w-auto max-w-sm">
+<!-- Plano Individual (ATUALIZADO COM LINK WHATSAPP) --><div class="glass-card p-8 rounded-3xl shadow-xl w-full max-w-md lg:max-w-sm transition-all duration-300 hover:border-orange-500">
+                        <h3 class="text-2xl font-bold mb-3">Plano Individual</h3>
+                        <p class="text-gray-400 mb-6">Apenas 1 Tela</p>
+                        <p class="text-5xl font-extrabold mb-6 text-orange-500">R$25<span class="text-lg font-normal text-gray-400">/mês</span></p>
+                        <ul class="text-left space-y-3 mb-8 text-gray-300">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-orange-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Apenas 1 Tela</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=5511977957131&text=Olá%20quero%20testar%20o%20sistema%20da%20OmniTV%20de%20Graça%21" target="_blank" class="bg-orange-500 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all duration-300 w-full block hover:shadow-lg hover:shadow-green-500/40 hover:scale-105">
+                            Quero testar Grátis por 24h
+                        </a>
+                    </div>
+
+                    
+                        <!-- Box Divida com Amigo -->
+                        <div class="glass-card p-6 rounded-3xl border border-gray-800 bg-black/40 shadow-xl mt-4">
+                            <div class="flex flex-col items-center space-y-4">
+                                <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/logo.png" alt="OmniTv Logo" class="h-10 w-auto">
+                                <p class="text-sm md:text-base font-semibold text-white text-center">
+                                    AQUI VOCÊ PODE <span class="text-orange-500">DIVIDIR COM SEU AMIGO!</span>
+                                </p>
+                                <div class="mt-2 flex justify-center items-center">
+                                    <!-- Desktop: seta para a direita -->
+                                    <svg class="hidden sm:block w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M13 5l7 7-7 7"></path>
+                                    </svg>
+                                    <!-- Mobile: seta para baixo -->
+                                    <svg class="sm:hidden w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m7-7l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+<!-- Plano Família (Popular) (ATUALIZADO COM LINK WHATSAPP) --><div class="glass-card p-8 rounded-3xl shadow-2xl shadow-indigo-500/20 w-full max-w-md border-2 border-green-500 relative">
+                        <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-green-500 text-white text-sm font-bold px-4 py-1 rounded-full">MAIS POPULAR</span>
+                        <h3 class="text-3xl font-bold mb-3 text-green-400">Plano Família</h3>
+                        <p class="text-gray-400 mb-6">Acesso a 4 telas ao mesmo tempo</p>
+                        
+                        <!-- Preço com Desconto --><div class="mb-6">
+                            <p class="text-3xl font-bold text-gray-500 line-through decoration-red-500 decoration-2">
+                                De: R$49<span class="text-lg font-normal">/mês</span>
+                            </p>
+                            <p class="text-gray-300 text-lg -mb-2">Por apenas:</p>
+                            <p class="text-6xl font-extrabold text-green-400">
+                                R$35<span class="text-lg font-normal text-gray-400">/mês</span>
+                            </p>
+                        </div>
+
+                        <ul class="text-left space-y-3 mb-8 text-gray-300">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Acesso a 4 telas ao mesmo tempo</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>+1600 Canais</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Qualidade 4k e UHD</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>+ 36 Mil Filmes</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>+ 10 Mil Séries</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Suporte Humanizado</li>
+                        </ul>
+                        <a href="https://api.whatsapp.com/send?phone=5511977957131&text=Olá%20quero%20testar%20o%20sistema%20da%20OmniTV%20de%20Graça%21" target="_blank" class="bg-orange-500 hover:bg-indigo-500 text-white font-bold py-4 px-6 rounded-lg text-lg transition-all duration-300 w-full block shadow-lg hover:shadow-lg hover:shadow-green-500/40 hover:scale-105">
+                            Quero testar Grátis por 24h
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- Fim Seção de Preços --><!-- Seção de Perguntas Frequentes (FAQ) --><section id="faq" class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-5xl font-bold text-center mb-10 text-gradient">
+                    Perguntas Frequentes
+                </h2>
+
+                <div class="max-w-4xl mx-auto rounded-2xl glass-card overflow-hidden">
+                    
+                    <!-- Q1 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">1. O que é OmniTV?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: OmniTV é uma tecnologia que permite assistir canais de TV, filmes e séries pela internet, sem precisar de antena ou cabo. Tudo é transmitido online, com qualidade HD, Full HD ou 4K.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q2 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">2. Como funciona a OmniTV?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Basta ter uma conexão de internet e instalar o aplicativo em seu aparelho (TV, celular ou TV Box). Você recebe um login e senha e pode assistir a qualquer hora, de onde estiver.</p>
+                        </div>
+                    </details>
+                    
+                    <!-- Q3 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">3. Qual a diferença entre OmniTV e TV a cabo?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Na OmniTV, o conteúdo é transmitido via internet, oferecendo mais estabilidade, variedade de canais e custo muito menor que a TV por assinatura tradicional.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q4 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">4. Preciso de internet rápida para assistir?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim. Recomendamos uma conexão mínima de 10 Mbps para garantir boa qualidade de imagem, especialmente em HD ou 4K.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q5 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">5. O OmniTV é legalizado no Brasil?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Nosso serviço segue padrões internacionais de streaming e é voltado para uso privado e doméstico, com total segurança e estabilidade.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q6 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">6. Quais canais estão disponíveis?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Oferecemos canais abertos, fechados, esportivos, infantis, de filmes, séries e variedades. Além disso, há uma seção com filmes e séries sob demanda (VOD).</p>
+                        </div>
+                    </details>
+
+                    <!-- Q7 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">7. Como faço para instalar o aplicativo?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Após a compra ou solicitar um teste, enviamos um passo a passo com o link de download e todas as instruções de instalação conforme seu dispositivo (Smart TV, celular, TV Box ou computador).</p>
+                        </div>
+                    </details>
+
+                    <!-- Q8 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">8. O serviço funciona em qualquer aparelho?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim. Você pode assistir em Smart TVs, TV Box, celulares Android e iPhone, tablets e computadores.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q9 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">9. Posso usar a OmniTV em mais de um dispositivo?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Cada login é vinculado a um número específico de conexões simultâneas. Consulte seu plano para saber quantos acessos estão incluídos.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q10 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">10. O que fazer se o aplicativo travar?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Feche o app e reinicie o dispositivo. Se o problema persistir, verifique a conexão da internet. Nosso suporte também pode te ajudar a resolver rapidamente.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q11 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">11. Quais formas de pagamento são aceitas?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Aceitamos PIX, cartão de crédito e débito.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q12 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">12. O pagamento é mensal ou anual?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Temos planos mensais, trimestrais, semestrais e anuais — quanto maior o período, maior o desconto.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q13 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">13. Posso renovar automaticamente?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim. Enviamos lembretes de renovação antes do vencimento para você manter seu acesso ativo sem interrupções.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q14 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">14. Posso cancelar quando quiser?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim, sem burocracia. Basta entrar em contato com nosso suporte e solicitar o cancelamento.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q15 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">15. Meus dados estão seguros?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim. não usamos dados importantes no cadastro e o pagamento é feito por plataformas credenciadas como, mercado pago, infinite pay, Pagbank e outros.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q16 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">16. Como funciona o suporte?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Nosso suporte é feito via WhatsApp e está disponível todos os dias em horário comercial. Resolvemos a maioria dos atendimentos em poucos minutos.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q17 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">17. O que fazer se eu perder o acesso?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Entre em contato com o suporte informando seu e-mail ou número de pedido. Vamos restabelecer seu acesso rapidamente.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q18 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">18. Os canais são em Full HD ou 4K?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim! A maioria dos canais está disponível em HD e Full HD, e alguns em 4K, dependendo da velocidade da sua internet.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q19 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">19. Os canais travam?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: O serviço é estável, mas a qualidade depende diretamente da sua conexão. Recomendamos internet acima de 10 Mbps.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q20 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">20. Funciona fora do Brasil?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim, com o uso de VPN, você pode assistir de qualquer lugar do mundo.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q21 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">21. É preciso antena?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Não. Tudo é transmitido pela internet. Basta o aplicativo e conexão estável.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q22 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">22. Há canais adultos disponíveis?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim, mas ficam bloqueados por padrão. O cliente pode ativá-los se desejar.</p>
+                        </div>
+                    </details>
+
+                    <!-- Q23 --><details>
+                        <summary class="flex justify-between items-center cursor-pointer">
+                            <span class="font-semibold text-lg text-gray-100">23. Tem período de teste gratuito?</span>
+                            <span class="text-indigo-400 transform transition-transform duration-300">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="faq-content text-gray-400">
+                            <p>R: Sim você tem 24 horas para testar, e mesmo depois de assinar pode pedir reembolso em até 7 dias!</p>
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (MODIFICADO) --><footer class="bg-gray-900/50 border-t border-gray-800 py-10">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <!-- Logo Image (ATUALIZADO) -->
+            <div class="flex justify-center mb-4">
+                 <img src="https://app.omnitv.com.br/wp-content/uploads/2025/11/logo.png" alt="OmniTv Logo" class="h-10 w-auto opacity-70">
+            </div>
+            <!-- Links do Rodapé (MODIFICADO) -->
+            <div class="space-x-6 mb-4">
+                <a href="#" class="hover:text-white transition-colors">Termos de Uso</a>
+                <a href="#" class="hover:text-white transition-colors">Privacidade</a>
+            </div>
+            <p>&copy; 2025 OmniTv. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+
+    <!-- Script para Barra de Oferta Dinâmica e Carrossel --><script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Script da Barra de Oferta Dinâmica ---
+            function formatDate(date) {
+                // Nomes dos meses em português
+                const monthNames = [
+                    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+                ];
+                const day = date.getDate();
+                const month = monthNames[date.getMonth()];
+                return `${day} de ${month}`;
+            }
+
+            const today = new Date();
+            
+            const yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+            const dayBeforeYesterday = new Date(today);
+            dayBeforeYesterday.setDate(today.getDate() - 2);
+
+            // Formata as datas
+            const todayFormatted = formatDate(today);
+            const yesterdayFormatted = formatDate(yesterday);
+            const dayBeforeYesterdayFormatted = formatDate(dayBeforeYesterday);
+
+            // Cria o texto da oferta
+            const dynamicOfferText = `🔥 ÚLTIMO DIA! Oferta válida apenas para os dias ${dayBeforeYesterdayFormatted}, ${yesterdayFormatted} e ${todayFormatted}.`;
+            
+            const offerElement = document.getElementById('dynamic-offer-text');
+            if (offerElement) {
+                // Atualiza o texto da oferta
+                offerElement.textContent = dynamicOfferText;
+            }
+
+            // --- Script do Carrossel de Filmes ---
+            const scroller = document.querySelector(".scroller");
+
+            if (scroller) {
+                const scrollerInner = scroller.querySelector(".scroller__inner");
+                const scrollerContent = Array.from(scrollerInner.children);
+
+                // Duplica os itens para o efeito de loop infinito
+                scrollerContent.forEach((item) => {
+                    const duplicatedItem = item.cloneNode(true);
+                    duplicatedItem.setAttribute("aria-hidden", true);
+                    scrollerInner.appendChild(duplicatedItem);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
